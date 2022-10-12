@@ -20,9 +20,17 @@ async function run() {
     const database = client.db("natural");
     console.log('DATABASE CONNECTED SUCCESSFULLY');
     const productCollection = database.collection('allNaturalsProducts')
+    const pearlProductCollection = database.collection('pearlProducts')
 
+    // All Naturals Products
     app.get('/allNaturalsProducts', async (req, res) => {
       const cursor = productCollection.find({})
+      const products = await cursor.toArray()
+      res.send(products)
+    })
+    // Pearl Products
+    app.get('/pearlProducts', async (req, res) => {
+      const cursor = pearlProductCollection.find({})
       const products = await cursor.toArray()
       res.send(products)
     })
